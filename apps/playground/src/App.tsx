@@ -35,8 +35,10 @@ export default function App() {
   const [error, setError] = useState<string | null>(null);
   const [schema, setSchema] = useState<any>(null);
   
+  const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+
   useEffect(() => {
-    fetch('http://localhost:3001/api/schema')
+    fetch(`${apiUrl}/api/schema`)
       .then(res => res.json())
       .then(data => setSchema(data))
       .catch(err => console.error('Failed to fetch schema', err));
@@ -69,7 +71,7 @@ export default function App() {
         args = new Function(`return ${argsString}`)();
       }
 
-      const response = await fetch('http://localhost:3001/api/query', {
+      const response = await fetch(`${apiUrl}/api/query`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ model, action, args })

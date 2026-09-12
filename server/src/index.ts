@@ -146,7 +146,8 @@ fastify.post('/api/query', async (request, reply) => {
   }
 });
 
-fastify.listen({ port: 3001 }, async (err, address) => {
+const port = parseInt(process.env.PORT || '3001', 10);
+fastify.listen({ port, host: '0.0.0.0' }, async (err, address) => {
   if (err) {
     console.error(err);
     process.exit(1);
