@@ -123,15 +123,15 @@ export default function App() {
         </header>
 
         {activeTab === 'query' && (
-          <div className="flex-1 flex overflow-hidden">
+          <div className="flex-1 flex flex-col md:flex-row overflow-hidden">
             {/* Left Panel: Schema explorer */}
-            <div className="w-64 border-r border-gray-800 bg-[#0E1117] overflow-y-auto">
+            <div className="w-full md:w-64 border-b md:border-r border-gray-800 bg-[#0E1117] md:overflow-y-auto hidden md:block">
               <div className="p-4 border-b border-gray-800 uppercase text-xs font-semibold tracking-wider text-gray-500">
                 Database Tables
               </div>
-              <div className="p-2">
+              <div className="p-2 flex overflow-x-auto md:flex-col md:overflow-x-visible">
                 {schema ? Object.entries(schema).map(([modelName, def]: [string, any]) => (
-                  <div key={modelName} className="mb-2">
+                  <div key={modelName} className="mb-2 mr-2 md:mr-0 flex-shrink-0">
                     <div className="px-3 py-2 hover:bg-gray-800 rounded-md cursor-pointer flex items-center text-sm">
                       <Table size={14} className="mr-2 text-gray-500" />
                       {def.tableName}
@@ -144,7 +144,7 @@ export default function App() {
             </div>
 
             {/* Center: Editor */}
-            <div className="flex-1 flex flex-col border-r border-gray-800">
+            <div className="flex-[2] flex flex-col border-b md:border-r border-gray-800 min-h-[50vh] md:min-h-0">
               <div className="flex items-center justify-between px-4 py-2 border-b border-gray-800 bg-[#161B22]">
                 <div className="text-sm font-medium">Query Editor</div>
                 <button 
@@ -154,7 +154,7 @@ export default function App() {
                   <Play size={12} fill="currentColor" /> Run Query
                 </button>
               </div>
-              <div className="flex-1">
+              <div className="flex-1 min-h-0">
                 <Editor
                   height="100%"
                   defaultLanguage="typescript"
@@ -172,7 +172,7 @@ export default function App() {
             </div>
 
             {/* Right: Results Panel */}
-            <div className="w-1/3 flex flex-col bg-[#0E1117]">
+            <div className="w-full md:w-1/3 flex flex-col bg-[#0E1117] min-h-[40vh] md:min-h-0">
               <div className="flex items-center justify-between px-4 py-2 border-b border-gray-800 bg-[#161B22]">
                 <div className="text-sm font-medium">Results</div>
                 {duration && <div className="text-xs text-gray-500">{duration.toFixed(2)} ms</div>}
